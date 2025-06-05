@@ -1,1 +1,227 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto Mono", monospace;
+
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+#header {
+  width: 100%;
+  height: 100vh;
+  background-image: url(bruv.jpg);
+  background-size: cover;
+  /* Make the image cover the entire background */
+  background-position: center;
+  /* Center the background image */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+}
+
+body {
+  background-color: #421f4c;
+  background-image: url('ugh.jpg');
+  color: #e9e2f8;
+}
+
+
+.container {
+  padding: 10px 10%;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.name {
+  width: 50px;
+}
+
+nav ul li {
+  display: inline-block;
+  list-style: none;
+  margin: 10px 20px
+}
+
+nav ul li a {
+  color: #d7b7e6;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: 'Abhaya Libre', serif;
+  position: relative;
+}
+
+nav ul li a::after {
+  content: '';
+  width: 0;
+  height: 3px;
+  background: #f184be;
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  transition: 0.5s;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+.header-text {
+  margin-top: 20%;
+  font-size: 30px;
+}
+
+.header-text h1 {
+  font-size: 50px;
+  margin-top: 20px;
+  color: #fbc7ff;
+}
+
+/*ABOUT*/
+
+#about {
+  padding: 80px 0;
+  color: #f7ddf9;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.about-col-1 {
+  flex-basis: 35%;
+}
+
+.about-col-1 img {
+  width: 120%;
+  border-radius: 20px;
+  border-color: #42204c;
+  border: 20px;
+}
+
+.about-col-2 {
+  flex-basis: 50%;
+  font-family: 'Abhaya Libre', serif;
+}
+
+.sub-title {
+  font-size: 60px;
+  font-weight: 600;
+  color: #fbc7ff;
+}
+
+
+/* PORTFOLIO SECTION */
+
+#portfolio {
+  padding: 50px 0;
+}
+
+.work-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.work-board {
+  display: block;
+  width: 30%;
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+  background: #27122b;
+  color: #fbc7ff;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.work-board:hover {
+  background: #f184be;
+  transform: translateY(-10px);
+}
+
+/*Contact Screen*/
+
+#contacts {
+  padding: 30px 0;
+  background-image: url('starry.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.contact-list {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.contact-list p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.random h1{
+  font-size: 50px;
+  font-family: 'Abhaya Libre', serif;
+  color: #fbc7ff;
+  text-align: center;
+}
+
+
+/*Intro Screen*/
+
+.intro {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #27122b;
+  transition: 1s;
+
+}
+
+.logo-header {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #a56cea;
+}
+
+.logo {
+  position: relative;
+  display: inline-block;
+  bottom: -20px;
+  opacity: 0;
+}
+
+.logo.active {
+  bottom: 0;
+  opacity: 1;
+  transition: ease-in-out 0.5s;
+}
+
+.logo.fade {
+  bottom: 150px;
+  opacity: 0;
+  transition: ease-in-out 0.5s;
+}
 
