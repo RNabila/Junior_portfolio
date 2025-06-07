@@ -5,15 +5,15 @@
     }
 
     :root {
-      --deep-burgundy: #4a1a2c;
-      --rich-purple: #2d1b3d;
-      --dark-gold: #8b6914;
-      --antique-gold: #d4af37;
-      --charcoal: #1a1a1a;
-      --deep-gray: #2a2a2a;
-      --ivory: #f5f5dc;
-      --crimson: #8b0000;
-      --midnight: #0d0d0d;
+      --deep-burgundy: #25344f;
+      --rich-purple: #617891;
+      --dark-gold: #d5b893;
+      --antique-gold: #6f4d38;
+      --charcoal: #632024;
+      --deep-gray: #112250;
+      --ivory: #f5f029;
+      --crimson: #963f2e;
+      --midnight: #0e141c;
     }
 
     body {
