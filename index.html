@@ -1,65 +1,828 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link href="images/favicon.png" rel="icon" type="image/png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> 
+    <title>Game Design Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #1a1a2e 100%);
+            color: #e8e8e8;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite alternate;
+        }
+
+        .star:nth-child(odd) {
+            animation-delay: 1s;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffd700, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #e8e8e8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffd700;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .page {
+            display: none;
+            padding: 100px 2rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            margin-bottom: 4rem;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffd700, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #b8b8b8;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: #ffd700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .goal-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .goal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .goal-card h3 {
+            color: #ffd700;
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.2);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffd700;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            color: #ffd700;
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .competition-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .competition-card h3 {
+            color: #ffd700;
+            font-family: 'Orbitron', monospace;
+            margin-bottom: 1rem;
+        }
+
+        .iframe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .iframe-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000;
+        }
+
+        .iframe-label {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 0.5rem 1rem;
+            color: #ffd700;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .about-section {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .emoji-space {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px dashed rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffd700;
+            font-style: italic;
+        }
+
+        .reflection-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(255, 255, 255, 0.02));
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .goals-grid,
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .iframe-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="cfu.html">Check for Understanding</a>
-        <a href="labs.html">Unit Labs</a>
-        <a href = "https://nabilar7.github.io/Sophomore_Portfolio/index.html">Sophomore Portfolio</a>
+    <div class="stars"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">PORTFOLIO</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('projects')">Game Design</a></li>
+                <li><a href="#" onclick="showPage('design')">Design Process</a></li>
+                <li><a href="#" onclick="showPage('competitions')">Competitions</a></li>
+                <li><a href="#" onclick="showPage('cfu')">Check for Understanding</a></li>
+                <li><a href="#" onclick="showPage('about')">About</a></li>
+                <li><a href="#" onclick="showPage('reflection')">Reflection</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <div class="container" id="home">
-        <div class="profile-section">
-            <img src="profile.jpg" alt="Profile Picture" class="profile-img">
-            <h1>Nabila Raisa</h1>
-            <p>Student in Thomas A. Edison CTE High School </p>
-            <p><b>ABOUT ME!</b></p>
-            <p>Nabila Raisa is a Junior, and currently learning all about Python in her Programming and Prototyping course. She is a driven and open-minded individual who stands up for what is right. Her goal is to give minority and marginalized groups a voice, and speak up about the wrongs in the world. 
-She loves talking about politics to anyone who would listen, and has an ongoing interest in history and archaeology. Nabila likes to be involved in her community and help those in need. <br> During her free time, Nabila journals and enjoys creative writing fictional stories as well as listening to music. She 
-maintains a 4.0 GPA and grades over 90 every semester! </p>
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <div class="hero">
+            <h1>Game Design Portfolio</h1>
+            <p>Showcasing creativity, technical expertise, and passion for interactive experiences through comprehensive game development projects and iterative design processes.</p>
         </div>
 
-        <div class="featured-links">
-            <div class="featured-link">
-                <a href="cfu.html">
-                    <div class="link-content">
-                        <h2>Check For Understanding</h2>
-                        <p>View my programming exercises and assessments</p>
-                        <span class="link-arrow">→</span>
-                    </div>
-                </a>
-            </div>
-            <div class="featured-link">
-                <a href="labs.html">
-                    <div class="link-content">
-                        <h2>Unit Labs</h2>
-                        <p>Explore my coding projects and implementations</p>
-                        <span class="link-arrow">→</span>
-                    </div>
-                </a>
+        <div class="section">
+            <h2>Career Goals in Game Design</h2>
+            <div class="goals-grid">
+                <div class="goal-card">
+                    <h3>Technical Mastery</h3>
+                    <p>Developing advanced proficiency in Unity, C# programming, and industry-standard tools to create immersive gaming experiences with sophisticated mechanics and polished user interfaces.</p>
+                </div>
+                <div class="goal-card">
+                    <h3>Creative Innovation</h3>
+                    <p>Exploring innovative gameplay concepts and narrative techniques that push the boundaries of interactive entertainment while addressing meaningful themes and social impact.</p>
+                </div>
+                <div class="goal-card">
+                    <h3>Industry Integration</h3>
+                    <p>Building a professional foundation through competition participation, collaborative development practices, and maintaining industry-standard portfolios using GitHub and version control.</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <footer>
-        <div class="contact-info">
-            <h3>Contact Information</h3>
-            <p>Email: nabilar13@nycstudents.net</p>
-            <p>GitHub: github.com/RNabila</p>
-            <p>Phone: 000-000-0000</p>
+    <!-- GAME DESIGN COLLECTION -->
+    <div id="projects" class="page">
+        <div class="section">
+            <h2>Game Design Collection</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: #b8b8b8;">A comprehensive showcase of development work spanning multiple years, demonstrating proficiency across Unity Essentials, Creative Core, and Junior Programmer Pathways.</p>
             
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-image">Unity 3D Adventure Game</div>
+                    <div class="project-content">
+                        <h3>RPG Adventure System</h3>
+                        <p>A comprehensive role-playing game featuring character progression, inventory management, and dynamic combat systems. This project demonstrates advanced C# programming, UI/UX design, and audio integration.</p>
+                        <p style="margin-top: 1rem; font-style: italic; color: #ffd700;">Reflection: Building this RPG taught me the importance of modular code architecture and player feedback systems. The iterative playtesting process revealed critical balance issues that shaped my understanding of game flow and player engagement.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Unity</span>
+                            <span class="tech-tag">C#</span>
+                            <span class="tech-tag">UI/UX</span>
+                            <span class="tech-tag">Audio Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">VFX Showcase Project</div>
+                    <div class="project-content">
+                        <h3>Visual Effects System</h3>
+                        <p>An interactive demonstration showcasing particle systems, lighting effects, and shader programming. Features dynamic weather systems, magical spell effects, and environmental storytelling through visual design.</p>
+                        <p style="margin-top: 1rem; font-style: italic; color: #ffd700;">Reflection: This project pushed my technical boundaries in visual programming and taught me how lighting and effects can dramatically impact player immersion. The GitHub collaboration process refined my version control skills significantly.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Unity VFX</span>
+                            <span class="tech-tag">Shaders</span>
+                            <span class="tech-tag">Lighting</span>
+                            <span class="tech-tag">GitHub</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">Mobile Puzzle Game</div>
+                    <div class="project-content">
+                        <h3>Cross-Platform Puzzle Mechanics</h3>
+                        <p>A mobile-optimized puzzle game featuring touch controls, progressive difficulty scaling, and cloud save integration. Demonstrates responsive design principles and performance optimization for mobile platforms.</p>
+                        <p style="margin-top: 1rem; font-style: italic; color: #ffd700;">Reflection: Developing for mobile constraints taught me valuable lessons about optimization and user experience design. The challenge of creating intuitive touch controls refined my understanding of accessibility in game design.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Mobile Development</span>
+                            <span class="tech-tag">Touch Controls</span>
+                            <span class="tech-tag">Optimization</span>
+                            <span class="tech-tag">Cloud Integration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">AI Behavior System</div>
+                    <div class="project-content">
+                        <h3>Intelligent NPC Framework</h3>
+                        <p>Advanced AI system featuring state machines, pathfinding algorithms, and dynamic decision-making for non-player characters. Includes behavioral trees and adaptive difficulty scaling based on player performance.</p>
+                        <p style="margin-top: 1rem; font-style: italic; color: #ffd700;">Reflection: Implementing AI behaviors challenged my programming logic and introduced me to complex algorithmic thinking. The debugging process taught me systematic problem-solving approaches essential for game development.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">AI Programming</span>
+                            <span class="tech-tag">State Machines</span>
+                            <span class="tech-tag">Pathfinding</span>
+                            <span class="tech-tag">Behavioral Trees</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+
+    <!-- ITERATIVE DESIGN DOCUMENTATION -->
+    <div id="design" class="page">
+        <div class="section">
+            <h2>Iterative Design Documentation</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: #b8b8b8;">Comprehensive documentation showcasing the evolution of game concepts through brainstorming, prototyping, playtesting, and refinement processes.</p>
+            
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-image">Brainstorming & Concepts</div>
+                    <div class="project-content">
+                        <h3>Initial Concept Development</h3>
+                        <p>Mind maps, concept sketches, and initial game ideas exploring themes of environmental consciousness and collaborative problem-solving. Includes target audience analysis and market research documentation.</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">Wireframes & Flowcharts</div>
+                    <div class="project-content">
+                        <h3>System Architecture Planning</h3>
+                        <p>Detailed wireframes for user interfaces, game flow diagrams, and technical architecture documentation. Shows progression from paper sketches to digital prototypes with user experience considerations.</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">Game Design Document</div>
+                    <div class="project-content">
+                        <h3>Comprehensive GDD Samples</h3>
+                        <p>Professional game design documents featuring detailed mechanics descriptions, technical specifications, art direction guidelines, and production timelines. Demonstrates industry-standard documentation practices.</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">Playtesting Results</div>
+                    <div class="project-content">
+                        <h3>User Feedback Integration</h3>
+                        <p>Systematic playtesting documentation showing player feedback collection, analysis, and implementation of improvements. Includes before/after comparisons and iterative refinement processes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CREATIVE PROJECTS AND COMPETITIONS -->
+    <div id="competitions" class="page">
+        <div class="section">
+            <h2>Creative Projects & Competitions</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: #b8b8b8;">Showcasing innovation and creativity through participation in industry competitions and creative challenges.</p>
+            
+            <div class="competition-card">
+                <h3>Games for Change (G4C) Competition</h3>
+                <p><strong>Project Theme:</strong> Climate Action Through Interactive Storytelling</p>
+                <p>Developed an educational adventure game addressing climate change awareness through engaging narrative and puzzle mechanics. The game features multiple storylines that demonstrate the interconnectedness of environmental decisions and their long-term consequences.</p>
+                <p style="margin-top: 1rem;"><strong>Innovation Highlights:</strong> Implemented dynamic story branching based on player choices, integrated real environmental data, and created accessible gameplay for diverse age groups.</p>
+                <p style="margin-top: 1rem; font-style: italic; color: #ffd700;"><strong>Reflection:</strong> Participating in G4C challenged me to balance educational content with engaging gameplay. The feedback from judges emphasized the importance of meaningful interaction design and social impact measurement. This experience reinforced my commitment to creating games that address real-world challenges while maintaining entertainment value.</p>
+            </div>
+
+            <div class="competition-card">
+                <h3>Emoticon CS Fair</h3>
+                <p><strong>Project Theme:</strong> Emotional Intelligence in Gaming</p>
+                <p>Created an innovative emotion-recognition game that uses facial expression analysis to control character abilities. The project explored the intersection of computer vision, artificial intelligence, and game design.</p>
+                <p style="margin-top: 1rem;"><strong>Technical Innovation:</strong> Integrated machine learning models for real-time emotion detection, developed adaptive difficulty based on player emotional state, and created inclusive design considerations for diverse players.</p>
+                <p style="margin-top: 1rem; font-style: italic; color: #ffd700;"><strong>Reflection:</strong> This competition pushed me to explore emerging technologies and consider the ethical implications of emotion-based gaming. The interdisciplinary nature of the project enhanced my collaboration skills and broadened my understanding of technology's role in human expression.</p>
+            </div>
+
+            <div class="competition-card">
+                <h3>InfyAPP Challenge</h3>
+                <p><strong>Project Theme:</strong> Mobile Solutions for Digital Accessibility</p>
+                <p>Developed a mobile application focusing on accessibility in gaming, featuring customizable controls, visual/audio assistance options, and inclusive design principles for players with diverse abilities.</p>
+                <p style="margin-top: 1rem;"><strong>Impact Focus:</strong> Researched accessibility standards, implemented universal design principles, and collaborated with accessibility advocacy groups for authentic user feedback.</p>
+                <p style="margin-top: 1rem; font-style: italic; color: #ffd700;"><strong>Reflection:</strong> The InfyAPP Challenge opened my perspective on inclusive design and the responsibility of developers to create accessible experiences. Working with the disability community taught me valuable lessons about user-centered design and the importance of diverse testing groups.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECK FOR UNDERSTANDINGS -->
+    <div id="cfu" class="page">
+        <div class="section">
+            <h2>Check for Understanding</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: #b8b8b8;">Interactive coding exercises and demonstrations showcasing programming fundamentals and problem-solving approaches.</p>
+            
+            <div class="iframe-grid">
+                <!-- 33 iframe containers for CodeSkulptor projects -->
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 1: Basic Game Loop</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 1"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 2: Event Handling</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 2"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 3: Collision Detection</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 3"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 4: Animation Basics</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 4"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 5: Score Systems</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 5"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 6: User Input</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 6"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 7: Random Generation</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 7"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 8: Physics Simulation</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 8"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 9: State Management</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 9"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 10: Sound Integration</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 10"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 11: Menu Systems</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 11"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 12: Power-ups</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 12"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 13: Enemy AI</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 13"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 14: Level Design</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 14"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 15: Data Persistence</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 15"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 16: Particle Effects</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 16"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 17: Pathfinding</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 17"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 18: Multiplayer Basics</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 18"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 19: Optimization</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 19"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 20: Debug Techniques</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 20"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 21: Algorithm Design</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 21"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 22: Data Structures</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 22"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 23: Performance Testing</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 23"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 24: UI Components</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 24"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 25: Save Systems</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 25"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 26: Procedural Generation</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 26"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 27: Game Balance</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 27"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 28: Network Programming</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 28"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 29: Graphics Rendering</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 29"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 30: Memory Management</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 30"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 31: Version Control</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 31"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 32: Code Architecture</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 32"></iframe>
+                </div>
+                <div class="iframe-container">
+                    <div class="iframe-label">Exercise 33: Final Project</div>
+                    <iframe src="about:blank" title="CodeSkulptor Exercise 33"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT ME -->
+    <div id="about" class="page">
+        <div class="section">
+            <h2>About Me</h2>
+            <div class="about-section">
+                <div class="about-content">
+                    <h3 style="color: #ffd700; font-family: 'Orbitron', monospace; margin-bottom: 1rem;">Game Developer & Creative Technologist</h3>
+                    <p style="margin-bottom: 2rem;">Passionate about creating immersive interactive experiences that blend cutting-edge technology with meaningful storytelling. My journey in game development spans multiple years of dedicated learning, experimentation, and creative exploration.</p>
+                    
+                    <div class="emoji-space">
+                        Add your personal emojis and expressions here! 
+                        This space is reserved for your unique personality to shine through.
+                    </div>
+                    
+                    <p>My development philosophy centers on creating inclusive, accessible gaming experiences that bring people together and inspire positive change. Through continuous learning and collaboration, I strive to push the boundaries of what games can achieve as both entertainment and tools for social impact.</p>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h4 style="color: #ffd700; margin-bottom: 1rem;">Core Competencies</h4>
+                        <div class="tech-tags" style="justify-content: center;">
+                            <span class="tech-tag">Unity Development</span>
+                            <span class="tech-tag">C# Programming</span>
+                            <span class="tech-tag">Visual Scripting</span>
+                            <span class="tech-tag">UI/UX Design</span>
+                            <span class="tech-tag">Version Control</span>
+                            <span class="tech-tag">Agile Development</span>
+                            <span class="tech-tag">Creative Problem Solving</span>
+                            <span class="tech-tag">Team Collaboration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REFLECTION AND PROFESSIONALISM -->
+    <div id="reflection" class="page">
+        <div class="section">
+            <div class="reflection-section">
+                <h2 style="margin-bottom: 2rem;">Professional Reflection & Growth</h2>
+                
+                <div style="text-align: left; max-width: 900px; margin: 0 auto;">
+                    <h3 style="color: #ffd700; margin-bottom: 1rem;">Strengths & Technical Proficiency</h3>
+                    <p style="margin-bottom: 2rem;">Throughout my journey in the Game Design pathway, I have developed strong technical foundations in Unity development, C# programming, and industry-standard tools. My proficiency with GitHub for version control and collaborative development reflects real-world industry practices. I excel in systematic problem-solving, iterative design thinking, and creating user-centered experiences. My participation in competitions has strengthened my ability to work under pressure while maintaining creative vision and technical execution.</p>
+
+                    <h3 style="color: #ffd700; margin-bottom: 1rem;">Challenges & Learning Opportunities</h3>
+                    <p style="margin-bottom: 2rem;">The most significant challenges I faced involved balancing creative ambition with technical constraints and timeline management. Early projects taught me the importance of scope management and the iterative development process. Debugging complex systems and optimizing performance pushed me to develop patience and analytical thinking skills. Collaborative projects highlighted the necessity of clear communication and documentation practices. These challenges transformed into valuable learning experiences that shaped my professional development approach.</p>
+
+                    <h3 style="color: #ffd700; margin-bottom: 1rem;">Project Evolution & Growth</h3>
+                    <p style="margin-bottom: 2rem;">Comparing my earliest projects to recent work reveals dramatic improvement in code architecture, visual design, and user experience considerations. My understanding of game mechanics has evolved from simple implementations to complex, interconnected systems. The progression from individual coding exercises to comprehensive game projects demonstrates growth in project management, technical integration, and creative vision execution. Each competition and collaborative effort has refined my ability to adapt, innovate, and deliver professional-quality results.</p>
+
+                    <h3 style="color: #ffd700; margin-bottom: 1rem;">Career Vision & Impact Goals</h3>
+                    <p style="margin-bottom: 2rem;">My career goals center on becoming a versatile game developer who creates meaningful, accessible gaming experiences. I aim to specialize in games that address social issues while maintaining high entertainment value, following the path established through Games for Change participation. Long-term, I envision leading development teams in creating innovative interactive experiences that push technological boundaries while fostering positive social impact. The Game Design pathway has provided the technical foundation, creative confidence, and professional network necessary to achieve these ambitious goals.</p>
+                </div>
+
+                <div style="margin-top: 3rem; padding: 2rem; background: rgba(255, 215, 0, 0.1); border-radius: 15px; border: 1px solid rgba(255, 215, 0, 0.3);">
+                    <h3 style="color: #ffd700; margin-bottom: 1rem;">Final Statement</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.7; font-style: italic;">The Game Design pathway has transformed my understanding of interactive media as a powerful tool for storytelling, education, and social change. Through comprehensive technical training, creative exploration, and industry-standard practices, I have developed the skills and confidence necessary to pursue a career in game development. My commitment to inclusive design, technical excellence, and meaningful innovation will guide my continued growth as a creative technologist dedicated to pushing the boundaries of what games can achieve in our interconnected world.</p>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <a href="#" onclick="showPage('home')" class="btn">Return to Portfolio Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create stars
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            const numberOfStars = 100;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Navigation functionality
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation active state
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+            });
+        });
+    </script>
 </body>
 </html>
