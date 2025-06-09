@@ -316,6 +316,31 @@
             color: var(--accent-blue);
         }
 
+        .profile-image-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 0px transparent;
+}
+
+.profile-image-wrapper:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px 4px rgba(120, 100, 255, 0.5);
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    padding: 4px;
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
         .section-header p {
             font-size: 1.1rem;
             color: var(--text-muted);
@@ -1007,33 +1032,33 @@ Mentorship from industry professionals provided insights into enterprise-level s
         </div>
     </section>
 
-    <!--About Me-->
-    <section id="aboutme" class="page-section">
-        <div class="content-section">
-            <div class="section-header">
-                <h2>About Me</h2>
-                <p>Passionate student with a deep appreciation for creating apps based on social issues as well as games.</p>
-            </div>
+   <div class="animate-on-scroll">
+    <!-- Profile Image Circle -->
+    <div style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
+        <div class="profile-image-wrapper">
+            <img src="profile.jpg" alt="Profile Picture" class="profile-image">
+        </div>
+    </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
-                <div class="animate-on-scroll">
-                    <div style="background: rgba(26, 31, 46, 0.7); padding: 2rem; border-radius: 20px; border: 1px solid var(--border-color); backdrop-filter: blur(10px);">
-                        <h3 style="color: var(--accent-blue); margin-bottom: 1rem; font-family: 'Space Grotesk', sans-serif;">My Journey</h3>
-                        <p style="margin-bottom: 1rem;">
-                            As a rising senior at Thomas A. Edison CTE High School, I've dedicated myself to mastering the art and science of game development through the help of my mentor Ms.Ramirez. 
-My journey began with simple HTML games and evolved into complex Python challenges that create both technical and creative boundaries, as well as Figma prototyping.
-                        </p>
-                        <p style="margin-bottom: 1rem;">
-                            What drives me is knowing that it's not always about the end results, but sometimes the process it took to get there. I have experienced this first-hand
- during one of our final projects when the most rewarding part was being able to communicate with my team members in an efficient and friendly way, which was the only way we got
- out project finished even if we did not win the final competiton.
-                        </p>
-                        <p>
-                            I believe that we are able to change and affect our future through simple games and apps we create in our down time. There will always be that one person
- whose life forever changed because of something I created. That is my reason to keep doing what I love, and keep creating. Not just apps and games, but stories and poetry as well.
-                        </p>
-                    </div>
-                </div>
+    <!-- My Journey Box -->
+    <div style="background: rgba(26, 31, 46, 0.7); padding: 2rem; border-radius: 20px; border: 1px solid var(--border-color); backdrop-filter: blur(10px);">
+        <h3 style="color: var(--accent-blue); margin-bottom: 1rem; font-family: 'Space Grotesk', sans-serif;">My Journey</h3>
+        <p style="margin-bottom: 1rem;">
+            As a rising senior at Thomas A. Edison CTE High School, I've dedicated myself to mastering the art and science of game development through the help of my mentor Ms.Ramirez. 
+            My journey began with simple HTML games and evolved into complex Python challenges that create both technical and creative boundaries, as well as Figma prototyping.
+        </p>
+        <p style="margin-bottom: 1rem;">
+            What drives me is knowing that it's not always about the end results, but sometimes the process it took to get there. I have experienced this first-hand
+            during one of our final projects when the most rewarding part was being able to communicate with my team members in an efficient and friendly way, which was the only way we got
+            our project finished even if we did not win the final competition.
+        </p>
+        <p>
+            I believe that we are able to change and affect our future through simple games and apps we create in our down time. There will always be that one person
+            whose life forever changed because of something I created. That is my reason to keep doing what I love, and keep creating. Not just apps and games, but stories and poetry as well.
+        </p>
+    </div>
+</div>
+
 
                 <div class="animate-on-scroll">
                     <div style="background: rgba(26, 31, 46, 0.7); padding: 2rem; border-radius: 20px; border: 1px solid var(--border-color); backdrop-filter: blur(10px); margin-bottom: 2rem;">
